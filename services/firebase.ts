@@ -1,6 +1,4 @@
 import { initializeApp } from "firebase/app";
-// Analytics removed to prevent initialization errors
-// import { getAnalytics } from "firebase/analytics"; 
 import { 
   getFirestore, 
   collection, 
@@ -29,8 +27,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// Analytics disabled to fix "Service firestore is not available" error
-// const analytics = getAnalytics(app); 
 const db = getFirestore(app);
 const storage = getStorage(app);
 

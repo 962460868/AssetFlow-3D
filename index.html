@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AssetFlow 3D</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #09090b; /* Zinc 950 */
+        color: #e4e4e7; /* Zinc 200 */
+        -webkit-font-smoothing: antialiased;
+        overflow: hidden; /* Prevent body scroll, handle in app */
+      }
+      
+      /* OpenAI-style subtle scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent; 
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #27272a; /* Zinc 800 */
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #3f3f46; /* Zinc 700 */
+      }
+
+      /* Masonry / Waterfall Utilities */
+      .masonry-grid {
+        column-count: 2;
+        column-gap: 1.5rem;
+      }
+      @media (min-width: 640px) {
+        .masonry-grid { column-count: 2; }
+      }
+      @media (min-width: 768px) {
+        .masonry-grid { column-count: 3; }
+      }
+      @media (min-width: 1024px) {
+        .masonry-grid { column-count: 4; }
+      }
+      @media (min-width: 1400px) {
+        .masonry-grid { column-count: 5; }
+      }
+      @media (min-width: 1800px) {
+        .masonry-grid { column-count: 6; }
+      }
+      
+      .break-inside-avoid {
+        break-inside: avoid;
+        -webkit-column-break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* PERFORMANCE OPTIMIZATION: 
+         This allows the browser to skip rendering work for off-screen content.
+         Crucial for lists with 5000+ items.
+      */
+      .asset-card-container {
+        content-visibility: auto; 
+        contain-intrinsic-size: 1px 300px; /* Width Height estimate */
+      }
+
+      /* Advanced Animations - Silky & Vivid */
+      :root {
+        --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+        --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      @keyframes slideUpFade {
+        0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+      }
+
+      @keyframes scaleIn {
+        0% { opacity: 0; transform: scale(0.9); filter: blur(10px); }
+        100% { opacity: 1; transform: scale(1); filter: blur(0); }
+      }
+      
+      @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+      }
+
+      @keyframes shimmer {
+        0% { background-position: 200% 0; }
+        100% { background-position: -200% 0; }
+      }
+
+      .animate-enter {
+        animation: scaleIn 0.35s var(--ease-spring) forwards;
+      }
+      
+      .animate-slide-up {
+        animation: slideUpFade 0.5s var(--ease-out-expo) forwards;
+      }
+      
+      .animate-fade-in {
+        animation: fadeIn 0.4s ease-out forwards;
+      }
+
+      /* Glassmorphism Utilities */
+      .glass {
+        background: rgba(24, 24, 27, 0.6);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      
+      .glass-panel {
+        background: rgba(9, 9, 11, 0.75);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Utility for smooth transitions */
+      .transition-silky {
+        transition-property: all;
+        transition-timing-function: var(--ease-spring);
+        transition-duration: 0.4s;
+      }
+
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "firebase/app": "https://esm.sh/firebase@10.13.1/app",
+    "firebase/firestore": "https://esm.sh/firebase@10.13.1/firestore",
+    "firebase/storage": "https://esm.sh/firebase@10.13.1/storage",
+    "firebase/": "https://aistudiocdn.com/firebase@^12.6.0/"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
